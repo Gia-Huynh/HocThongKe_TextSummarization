@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Input Output Page</title>
+    <title>Home Page</title>
     <style>
         html, body {
             width: 100%;
@@ -86,15 +86,15 @@
 <body>
     <div class="header">
         <div class="taskbar">
-            <a href="#">HOME</a>
+            <a href="#" onclick="goToHome()">HOME</a>
             <div class="separator"></div> 
-            <a href="#">HISTORY</a>
+            <a href="#" onclick="goToHistory()">HISTORY</a>
         </div>
     </div>
     <div class="container">
         <div class="input-container">
             <h2>Text</h2>
-            <textarea id="inputText" rows="5" placeholder="Enter input..."></textarea>
+            <textarea id="inputText" rows="8" placeholder="Enter input..."></textarea>
         </div>
         <div class="output-container">
             <h2>Text Summary</h2>
@@ -117,12 +117,21 @@
             })
             .then(response => response.json())
             .then(data => {
-               
                 document.getElementById("outputText").value = data.text;
             })
             .catch(error => {
                 console.error('Error:', error);
             });
+        }
+
+        // Function for Home button
+        function goToHome() {
+            window.location.reload();
+        }
+
+        // Function for History button
+        function goToHistory() {
+            window.location.href = 'http://localhost:8888/get_history'; 
         }
     </script>
 </body>
