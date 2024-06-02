@@ -10,7 +10,6 @@ billsum["train"][0]
 from transformers import AutoTokenizer
 import torch
 print(torch.cuda.device_count())
-#STOP
 
 checkpoint = "google-t5/t5-small"
 tokenizer = AutoTokenizer.from_pretrained(checkpoint)
@@ -32,7 +31,6 @@ data_collator = DataCollatorForSeq2Seq(tokenizer=tokenizer, model=checkpoint)
 
 #Evaluate
 import evaluate
-
 rouge = evaluate.load("rouge")
 import numpy as np
 
@@ -58,12 +56,12 @@ model = AutoModelForSeq2SeqLM.from_pretrained(checkpoint)
 training_args = Seq2SeqTrainingArguments(
     output_dir="my_awesome_billsum_model",
     eval_strategy="epoch",
-    learning_rate=2e-5,
+    learning_rate=1e-4, #2e-5
     per_device_train_batch_size=16,
     per_device_eval_batch_size=16,
     weight_decay=0.01,
     save_total_limit=3,
-    num_train_epochs=4,
+    num_train_epochs=12,
     predict_with_generate=True,
     fp16=True,
     push_to_hub=False,
@@ -99,3 +97,8 @@ def inference (text_input, model):
     outputs = model.generate(inputs, max_new_tokens=100, do_sample=False)
     return tokenizer.decode(outputs[0], skip_special_tokens=True)
 print (inference (text, model))
+
+text_2 = "summarize: In economics, inflation is a general increase in the prices of goods and services in an economy. This is usually measured using the consumer price index (CPI). When the general price level rises, each unit of currency buys fewer goods and services; consequently, inflation corresponds to a reduction in the purchasing power of money. The opposite of CPI inflation is deflation, a decrease in the general price level of goods and services. The common measure of inflation is the inflation rate, the annualized percentage change in a general price index. As prices faced by households do not all increase at the same rate, the consumer price index (CPI) is often used for this purpose. Changes in inflation are widely attributed to fluctuations in real demand for goods and services (also known as demand shocks, including changes in fiscal or monetary policy), changes in available supplies such as during energy crises (also known as supply shocks), or changes in inflation expectations, which may be self-fulfilling.[10] Moderate inflation affects economies in both positive and negative ways. The negative effects would include an increase in the opportunity cost of holding money, uncertainty over future inflation, which may discourage investment and savings, and, if inflation were rapid enough, shortages of goods as consumers begin hoarding out of concern that prices will increase in the future. Positive effects include reducing unemployment due to nominal wage rigidity,[11] allowing the central bank greater freedom in carrying out monetary policy, encouraging loans and investment instead of money hoarding, and avoiding the inefficiencies associated with deflation."
+
+print (summarizer(text_2))
+print (inference (text_2, model))
