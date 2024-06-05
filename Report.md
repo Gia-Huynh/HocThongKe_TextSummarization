@@ -7,6 +7,7 @@ Bao gồm các đặc trưng: Nội dung của Bill, tóm tắt, tiêu đề (ch
 
 ![](./report_data/BillSumImg.png)  
 *Ảnh chụp một phần dữ liệu gốc chưa qua tiền xử lý.*  
+
 ## Tiền xử lý dataset  
 ```
 from transformers import AutoTokenizer
@@ -67,9 +68,34 @@ If you have any more questions or need further details, feel free to ask!"
   
 ### Pre-train dataset
 Model đã được pre-train trên tập dataset *Colossal Clean Crawled Corpus (C4)*.
- 
+"""To address these issues, we used the following
+heuristics for cleaning up Common Crawl’s web extracted text:
+• We only retained lines that ended in a terminal punctuation mark (i.e. a period,
+exclamation mark, question mark, or end quotation mark).
+• We discarded any page with fewer than 3 sentences and only retained lines that
+contained at least 5 words.
+• We removed any page that contained any word on the “List of Dirty, Naughty, Obscene
+or Otherwise Bad Words”.6
+• Many of the scraped pages contained warnings stating that Javascript should be
+enabled so we removed any line with the word Javascript.
+• Some pages had placeholder “lorem ipsum” text; we removed any page where the
+phrase “lorem ipsum” appeared.
+• Some pages inadvertently contained code. Since the curly bracket “{” appears in
+many programming languages (such as Javascript, widely used on the web) but not in
+natural text, we removed any pages that contained a curly bracket.
+• Since some of the scraped pages were sourced from Wikipedia and had citation markers
+(e.g. [1], [citation needed], etc.), we removed any such markers.
+• Many pages had boilerplate policy notices, so we removed any lines containing the
+strings “terms of use”, “privacy policy”, “cookie policy”, “uses cookies”, “use of
+cookies”, or “use cookies”.
+• To deduplicate the data set, we discarded all but one of any three-sentence span
+occurring more than once in the data set."""
 ## Metric  
 Metric được sử dụng là Rogue Metric.
 
 
-## Kết quả huấn luyện
+## Kết quả huấn luyện  
+Khá tốt, so sánh trực tiếp với kết quả của model có sẵn thì cho thấy nó output giống nhau.  
+Cho thấy quá trình huấn luyện đã thành công. 
+![](./report_data/OutputDemo.png)  
+*Ảnh chụp so sánh giữa output của mô hình huấn luyện được (3) và mô hình có sẵn (2)*  
