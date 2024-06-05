@@ -25,6 +25,17 @@ Mục tiêu của họ khi tạo ra model này là dùng nó cho nhiều tác v�
 Nó là một model ứng dụng Transformer với input/output đều là văn bản (Khác với model Bart, cũng của Google).  
 Tuy nhiên về cái cốt lõi của Transformer thì không có sự thay đổi đáng kể nên nhóm tác giả đã hướng người đọc tới báo cáo gốc của Transformer để hiểu rõ hơn.  
   
+"We use a simplified form of position embeddings
+where each “embedding” is simply a scalar that is added to the corresponding logit used
+for computing the attention weights. For efficiency, we also share the position embedding
+parameters across all layers in our model, though within a given layer each attention head
+uses a different learned position embedding"
+"To summarize, our model is roughly equivalent to the original Transformer proposed by
+Vaswani et al. (2017) with the exception of removing the Layer Norm bias, placing the layer
+normalization outside the residual path, and using a different position embedding scheme.
+Since these architectural changes are orthogonal to the experimental factors we consider in
+our empirical survey of transfer learning, we leave the ablation of their impact for future
+work."
   
 Đây là hỏi chatGpt để đọc, mà thấy không đáng tin tí nào cả nên thôi chắc xóa phần này rồi đọc paper cho chắc  
 "Certainly! The architecture of the Text-to-Text Transfer Transformer (T5) model is based on the Transformer architecture, which has been highly successful in natural language processing (NLP) tasks. Here are the key components:
