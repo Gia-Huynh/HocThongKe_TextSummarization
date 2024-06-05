@@ -20,8 +20,40 @@ Dữ liệu được tokenized theo như báo cáo của mô hình gốc, bao g�
 	Năm  
 test
 ## Model  
-Model được sử dụng là *google-t5/t5-small* bởi Google, nó là một model ứng dụng transformer với input/output đều là văn bản (Khác với model Bart của Google).  
-Mục tiêu của họ khi tạo ra model này là dùng nó cho nhiều tác vụ khác nhau với một model duy nhất, một metric duy nhất, một thuật toán tối ưu duy nhất.  
+Model được sử dụng là *google-t5/t5-small* bởi Google.  
+Mục tiêu của họ khi tạo ra model này là dùng nó cho nhiều tác vụ khác nhau với một model duy nhất, một metric duy nhất, một thuật toán tối ưu duy nhất nhằm đơn giản hóa quá trình so sánh giữa các bộ dữ liệu và các bài toán khác nhau.
+Nó là một model ứng dụng Transformer với input/output đều là văn bản (Khác với model Bart, cũng của Google).  
+Tuy nhiên về cái cốt lõi của Transformer thì không có sự thay đổi đáng kể nên nhóm tác giả đã hướng người đọc tới báo cáo gốc của Transformer để hiểu rõ hơn.  
+  
+  
+Đây là hỏi chatGpt để đọc, mà thấy không đáng tin tí nào cả nên thôi chắc xóa phần này rồi đọc paper cho chắc  
+"Certainly! The architecture of the Text-to-Text Transfer Transformer (T5) model is based on the Transformer architecture, which has been highly successful in natural language processing (NLP) tasks. Here are the key components:
+
+Encoder-Decoder Structure:
+T5 follows the standard Transformer architecture, consisting of an encoder and a decoder.
+The encoder processes the input text, while the decoder generates the output text.
+Both encoder and decoder consist of multiple layers of self-attention and feed-forward neural networks.
+Unified Text-to-Text Format:
+T5 reframes all NLP tasks into a consistent format: both input and output are treated as text strings.
+This allows T5 to handle a wide range of tasks without task-specific modifications.
+Pre-training and Fine-tuning:
+T5 is pre-trained on a large corpus of text data using unsupervised learning.
+During pre-training, it learns to predict masked tokens (similar to BERT) and also learns to generate text.
+Fine-tuning involves training T5 on specific downstream tasks with labeled data.
+Task-Specific Heads:
+T5 uses task-specific heads (output layers) for different tasks.
+For example, a translation task would have a different head than a summarization task.
+Shared Vocabulary:
+T5 uses a shared vocabulary for both input and output tokens.
+This simplifies the model and allows it to handle diverse tasks.
+Task Prefixes:
+T5 introduces task-specific prefixes to guide the model during fine-tuning.
+For instance, a translation task might have the prefix “Translate English to French: …”
+Overall, T5’s strength lies in its versatility—it can be fine-tuned for various NLP tasks by simply adjusting the task-specific head and providing appropriate prefixes during fine-tuning. 😊🚀
+
+If you have any more questions or need further details, feel free to ask!"
+  
+  
 ### Pre-train dataset
 Model đã được pre-train trên tập dataset *Colossal Clean Crawled Corpus (C4)*.
  
