@@ -91,7 +91,70 @@ cookies”, or “use cookies”.
 • To deduplicate the data set, we discarded all but one of any three-sentence span
 occurring more than once in the data set."""
 ## Metric  
-Metric được sử dụng là Rogue Metric.
+### Rouge score 
+* Là nhóm các độ đo được dùng để đánh giá chất lượng của text summarization. Cách mà Rough score hoạt động là so sánh văn bản tóm tắt được tạo ra và văn bản tóm tắt tham chiếu.
+#### a.	Rouge-N: 
+-	Đo lường **tần suất xuất hiện của n-gram** (cụm từ n từ liên tiếp) trong tóm tắt máy so với tóm tắt tham chiếu.
+-	Trong rouge-n, n có thể là 1 hoặc 2. 
+-	Ví dụ: “I love her very much”. Rouge-1: ( I ) , ( love ), ( her ), ( very ), ( much ).Rouge-2: ( I love ), ( love her ), ( her very ), ( very much )
+-	Cách tính cụ thể của Rouge 1 và Rouge 2:
+Machine result: “the cat is on the mat”. 
+Reference result: “the cat sat on the red mat”.
+-	**Rouge-1:** 
++ Liệt kê các unigrams:
+Machine result: ["the", "cat", "is", "on", "the", "mat"] => 6
+Reference result: ["the", "cat", "sat", "on", "the", “red”, "mat"] => 7
++ Đếm số lượng unigrams phù hợp giữ machine với reference:
+ 	["the", "cat",  "on", "the", "mat"]   => 5
++ Tính precision ( P ), recall ( R ) và f1-score ( F1 )
+**P = số unigrams phù hợp / tổng số unigrams trong machine result.** P= 5/6 = 0.833.
+**R = số unigrams phù hợp / tổng số unigrams trong reference result.** R = 5/7 = 0.714.
+**F1 = (2xPxR) / (P+R)**. F1 = (2x0.833x0.714)/(0.833+0.714) = 0.769
+-	**Rouge-2:**
++ Liệt kê các unigrams:
+Machine result: ["the cat", "cat is", "is on", "on the", "the mat"] => 5
+Reference result: ["the cat", "cat sat","sat on","on the", "the red",“red mat”] => 6
++ Đếm số lượng unigrams phù hợp giữ machine với reference:
+ 	["the cat", "on the"]   => 2
++ Tính precision ( P ), recall ( R ) và f1-score ( F1 )
+**P = số unigrams phù hợp / tổng số unigrams trong machine result.** P = 2/5 = 0.4
+**R = số unigrams phù hợp / tổng số unigrams trong reference result.** R = 2/6 = 0.333
+**F1 = (2xPxR) / (P+R).** F1 = (2x0.4x0.333)/(0.4+0.333) = 0.364
+#### b. Rouge-L:
+-	Đo lường **chiều dài chuỗi con chung dài nhất** (Longest Common Subsequence - LCS) giữa tóm tắt máy và tóm tắt tham chiếu. Thay vì chỉ quan tâm đến các n-gram cụ thể, ROUGE-L xem xét các chuỗi con dài nhất mà cả hai câu cùng có và đánh giá mức độ trùng khớp về trật tự từ.
+-	Tính 3 chỉ số: Precision ( P ), Recall ( R ), F1-score ( F1 )
++ P: tỷ lệ độ dài của LCS với tổng số từ trong machine result. 
+   P = |LCS| / length of machine result.
++ R: tỷ lệ độ dài của LCS với tổng số từ trong reference result.
+   R = |LCS| / length of reference result.
++ F1 = (2xPxR) / (P+R)
+-	Ví dụ: 
+ Machine result: “the cute cat is on the mat”. => 7.
+ Reference result: “the cute cat sat on the red mat”. => 8
++ Tìm chuỗi con giống nhau dài nhất: “the cute cat” => len = 3.
++ Tính P, R, F1:
+P = 3/7 = 0.429
+R = 3/8 = 0.375
+F1 = (2xPxR) / (P+R) = 0.281
+#### c.	Rouge-S:
+-	Đo **dựa trên các cặp từ** (bigram) mà không yêu cầu các từ trong cặp phải liền kề nhau nhưng vẫn giữ nguyên thứ tự xuất hiện. ROUGE-S đánh giá khả năng của tóm tắt máy trong việc bảo tồn các mối quan hệ giữa các từ trong tóm tắt tham chiếu.
+-	Tính 3 chỉ số: P, R, F1
++ Precision (P): Tỷ lệ skip-bigram phù hợp so với tổng số skip-bigram trong tóm tắt máy.
++ Recall (R): Tỷ lệ skip-bigram phù hợp so với tổng số skip-bigram trong tóm tắt tham chiếu.
++ F1 = (2xPxR) / (P+R)
+-	Ví dụ: Machine result : "the cat is on the mat" Reference result: "the cat sat on the red mat"
++ Liệt kê các skip-bigrams trong machine result và reference result.
+Skip-bigrams trong machine result: "the cat", "the is", "the on",”the the”, "the mat", "cat is", "cat on", “cat the”, "cat mat", "is on", “is the”, "is mat", "on the", "on mat", “the mat” => 15
+Skip-bigrams trong tóm tắt tham chiếu: "the cat", "the sat", "the on", “the the”, "the red", "the mat", "cat sat", "cat on", “cat the”, "cat red", "cat mat", "sat on", “sat the”, "sat red", "sat mat", "on the", "on red", "on mat", "the red", "the mat", "red mat" => 21
++ So sánh các skip-bigrams trong tóm tắt máy với các skip-bigrams trong tóm tắt tham chiếu để tìm các cặp trùng khớp:
+"the cat", "the on", "the the", "the mat", "cat on", "cat the", "cat mat", "on the", "on mat”.  => 9
++ Tính Precision, Recall và F1-Score
+P = 9/15 = 0.6
+R = 9/21 = 0.429
+F1 = (2x0.6x0.429) / (0.6+0.429) = 0.5
+
+
+
 
 
 ## Kết quả huấn luyện  
@@ -99,3 +162,4 @@ Khá tốt, so sánh trực tiếp với kết quả của model có sẵn thì 
 Cho thấy quá trình huấn luyện đã thành công. 
 ![](./report_data/OutputDemo.png)  
 *Ảnh chụp so sánh giữa output của mô hình huấn luyện được (3) và mô hình có sẵn (2)*  
+
