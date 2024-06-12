@@ -1,39 +1,19 @@
 # Text Summarization
 [Blog của Google về Model và Dataset](https://research.google/blog/exploring-transfer-learning-with-t5-the-text-to-text-transfer-transformer/).  
-[Trang thông tin chi tiết về Dataset](https://huggingface.co/datasets/billsum).  
-## Dataset
-Dataset được sử dụng là dataset BillSum, gồm các dự luật của quốc hội Mỹ và bang California (“US Congressional and California state bills”) và tóm tắt của chúng.  
-Bao gồm các đặc trưng: Nội dung của Bill, tóm tắt, tiêu đề (chỉ có với dự luật quốc hội, không có với California), độ dài của nội dung, độ dài tóm tắt.  
-
-![](./report_data/BillSumImg.png)  
-*Ảnh chụp một phần dữ liệu gốc chưa qua tiền xử lý.*  
-
-## Tiền xử lý dataset  
-```
-from transformers import AutoTokenizer
-tokenizer = AutoTokenizer.from_pretrained("google-t5/t5-small")
-```  
-Dữ liệu được tokenized theo như báo cáo của mô hình gốc, bao gồm các bước:  
-	Một  
-	Hai  
-	Ba  
-	Bốn  
-	Năm  
-test
+[Trang HuggingFace về Model](https://huggingface.co/docs/transformers/en/model_doc/t5).
+[Trang thông tin chi tiết về Dataset](https://huggingface.co/datasets/billsum).
 ## Model  
 $\quad$ Model được sử dụng là *google-t5/t5-small* bởi Google.  
 $\quad$ Mục tiêu của họ khi tạo ra model này là dùng nó cho nhiều tác vụ khác nhau với một model duy nhất, một metric duy nhất, một thuật toán tối ưu duy nhất nhằm đơn giản hóa quá trình so sánh giữa các bộ dữ liệu và các bài toán khác nhau.
-$\quad$ Nó là một model ứng dụng Transformer với input/output đều là văn bản (Khác với model Bart, cũng của Google). Tuy nhiên về cái cốt lõi của Transformer thì không có sự thay đổi đáng kể nên nhóm tác giả đã hướng người đọc tới báo cáo gốc của Transformer để hiểu rõ hơn.  
+$\quad$ Nó là một model ứng dụng Transformer với input là văn bản, output là phiên bản mã hóa của văn bản, theo cấu trúc Encoder - Decoder (Khác với model Bart, cũng của Google). Tuy nhiên về cái cốt lõi của Transformer thì không có sự thay đổi đáng kể nên nhóm tác giả đã hướng người đọc tới báo cáo gốc của Transformer để hiểu rõ hơn.  
 $\quad$ Nguyên văn của họ (đã dịch):  
 $\quad$ "Chúng tôi đơn giản hóa những "nhúng vị trí" (position embedding), trong đó mỗi “nhúng” chỉ đơn giản là một con số được đưa vào hàm logit (ln (p/(1-p))) tương ứng mà được sử dụng để tính toán trọng số của lớp attention. Để tối ưu hiệu năng, chúng tôi cũng chia sẻ các tham số "nhúng vị trí" đó cho tất cả các lớp trong mô hình, mặc dù trong mỗi lớp, các đầu attention sử dụng tham số học được khác nhau đối với các "nhúng" đó."  
-$\quad$ "Ngắn gọn thì mô hình của chúng tôi **gần như** tương đồng với mô hình Transformer gốc được đề xuất bởi Vaswani và cộng sự (2017) với các sự khác biệt là: Loại bỏ bias Layer Norm, đặt lớp chuẩn hóa theo lớp (Layer Normalization) ngoài residual path, và sử dụng phương pháp nhúng vị trí khác. Vì sự thay đổi cấu trúc này không ảnh hưởng tới các yếu tố mà chúng tôi đang nghiên cứu (Nghiên cứu về quá trình học chuyển giao), sự ảnh hưởng của việc thay đổi cấu trúc cứ để tương lai rồi tính".
-$\quad$ "We use a simplified form of position embeddings where each “embedding” is simply a scalar that is added to the corresponding logit used for computing the attention weights. For efficiency, we also share the position embedding parameters across all layers in our model, though within a given layer each attention head uses a different learned position embedding"  
-$\quad$ "To summarize, our model is roughly equivalent to the original Transformer proposed by Vaswani et al. (2017) with the exception of removing the Layer Norm bias, placing the layer normalization outside the residual path, and using a different position embedding scheme. Since these architectural changes are orthogonal to the experimental factors we consider in our empirical survey of transfer learning, we leave the ablation of their impact for future work."
-  
+$\quad$ "Ngắn gọn thì mô hình của chúng tôi **gần như** tương đồng với mô hình Transformer gốc được đề xuất bởi Vaswani và cộng sự (2017) với các sự khác biệt là: Loại bỏ bias Layer Norm, đặt lớp chuẩn hóa theo lớp (Layer Normalization) ngoài lớp nối tắt, và sử dụng khác phương pháp nhúng vị trí. Vì sự thay đổi cấu trúc này không ảnh hưởng tới các yếu tố mà chúng tôi đang nghiên cứu (Nghiên cứu về quá trình học chuyển giao), sự ảnh hưởng của việc thay đổi cấu trúc cứ để tương lai rồi tính".
   
 ### Pre-train dataset
-Model đã được pre-train trên tập dataset *Colossal Clean Crawled Corpus (C4)*, vốn là một tập dữ liệu văn bản khổng lồ được crawl từ dữ liệu khắp nơi trên internet.  
-Nhóm Google thấy tập đó có số lượng lớn nhưng chất lượng cực thấp nên họ đã tiến hành "lọc" lại bộ dữ liệu như sau:  
+$\quad$ Trước khi huấn luyện trên các tập dataset chất lượng cao dành riêng cho bài toán này, đa phần các mô hình sẽ được pre-train sẵn trên các tập dataset văn bản không gán nhãn để *tập cho mô hình xuất ra được văn bản gần giống tiếng người*.  
+$\quad$ Model đã được pre-train trên tập dataset *Colossal Clean Crawled Corpus (C4)*, vốn là một tập dữ liệu văn bản khổng lồ được crawl từ dữ liệu khắp nơi trên internet.  
+$\quad$ Nhóm Google thấy tập đó có số lượng lớn nhưng chất lượng cực thấp nên họ đã tiến hành "lọc" lại bộ dữ liệu như sau:  
 * Chỉ giữ những câu kết thúc bằng dấu câu. (Là: "? . !")  
 * Loại bỏ các trang web ít hơn 3 câu, chỉ giữ những câu dài hơn 4 chữ.  
 * Loại bỏ các trang có những từ "nhạy cảm".
@@ -45,6 +25,28 @@ Nhóm Google thấy tập đó có số lượng lớn nhưng chất lượng c�
 strings “terms of use”, “privacy policy”, “cookie policy”, “uses cookies”, “use of
 cookies”, or “use cookies”.
 • Để giảm sự trùng lặp cho bộ dữ liệu, tiến hành loại bỏ các bộ 3 câu liên tiếp bị trùng trong cả bộ dữ liệu, giữ lại đúng một bộ.
+  
+## Dataset
+$\quad$ Dataset được sử dụng là dataset BillSum, gồm các dự luật của quốc hội Mỹ và bang California (“US Congressional and California state bills”) và tóm tắt của chúng.  
+$\quad$ Bao gồm các đặc trưng: Nội dung của Bill, tóm tắt, tiêu đề (chỉ có với dự luật quốc hội, không có với California), độ dài của nội dung, độ dài tóm tắt.  
+
+![](./report_data/BillSumImg.png)  
+*Ảnh chụp một phần dữ liệu gốc chưa qua tiền xử lý.*  
+
+### Tiền xử lý dataset 
+```
+from transformers import AutoTokenizer
+tokenizer = AutoTokenizer.from_pretrained("google-t5/t5-small")
+```  
+Dữ liệu được tokenized theo như báo cáo của mô hình T5, vì mô hình này có cấu trúc tương tự với Transformer nên quá trình tiền xử lý dataset cũng tương tự báo cáo gốc, bao gồm các bước:  
+1. Gán thêm câu khởi tạo tác vụ, ở đây là "Summarize: ". 
+2. Mã hóa văn bản đầu vào thành vector các token, ở đây không biến đổi thông qua các mô hình Word2Vec mà chỉ ánh xạ trực tiếp các từ sang một giá trị index của từ trong từ điển, đưa nó vào cột "Input_Id". 
+3. Tạo cột "Attention_Mask" để gán nhãn Attention cho mô hình, 1 là quan tâm, 0 là mặc kệ, dùng cho trường hợp mình cần thêm padding vào các câu ngắn cho độ dài đồng đều.  
+4. Tạo cột "Labels" chứa phiên bản đã mã hóa (như bước 2) của câu mục tiêu, ở đây là câu tóm tắt.  
+  
+![](./report_data/TokenizerDemo.png)  
+*Ảnh file tokenizer.json minh họa cho bước 1 và 2* 
+
 ## Metric  
 ### Rouge score 
 * Là nhóm các độ đo được dùng để đánh giá chất lượng của text summarization. Cách mà Rough score hoạt động là so sánh văn bản tóm tắt được tạo ra và văn bản tóm tắt tham chiếu.
