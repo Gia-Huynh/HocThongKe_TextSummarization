@@ -3,11 +3,11 @@ import sys
 sys.stdout = sys.__stdout__
 from datasets import load_dataset
 
-name_run = "1024, 128, split 'train', stock lr 1e-4"
-gay_epoch = 10
+name_run = "1024, 128, ONLY 'train', stock lr 1e-4"
+gay_epoch = 2
 batch_size = 20
-gayLR = 1e-4
-gayLrDecay = 0.01
+gayLR = 1e-3
+gayLrDecay = 0.4
 InputMaxLength = 1024
 OutputMaxLength = 128
 from transformers import AutoTokenizer
@@ -30,8 +30,9 @@ def preprocess_function(examples):
     model_inputs["labels"] = labels["input_ids"]
     return model_inputs
 
-billsum = load_dataset("billsum")
-#TextDataset = billsum["test"].train_test_split(test_size=0.1)
+billsum = load_dataset("billsum", split = "train")
+billsumTest = load_dataset ("billsum", split = "test")
+billsum = billsum.train_test_split(test_size=0.1)
 #Tokenized_TextDataset = TextDataset.map(preprocess_function, batched=True)
 Tokenized_TextDataset = billsum.map(preprocess_function, batched=True)
 
