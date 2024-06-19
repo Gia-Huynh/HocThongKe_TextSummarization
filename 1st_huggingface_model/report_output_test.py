@@ -3,13 +3,11 @@ import sys
 sys.stdout = sys.__stdout__
 from datasets import load_dataset
 
-name_run = "1024, 128, split 'train', stock lr 1e-4"
-gay_epoch = 10
-batch_size = 20
-gayLR = 1e-4
-gayLrDecay = 0.01
-InputMaxLength = 1024
-OutputMaxLength = 128
+name_run = "1024-128_1e-3-0.9-BillSumThenCNN"
+gay_epoch = 6
+batch_size = 24
+gayLR = 1e-3
+gayLrDecay = 0.9
 from transformers import AutoTokenizer
 import torch
 print(torch.cuda.device_count())
@@ -25,8 +23,8 @@ prefix = "summarize: "
 #Dataset Prepare
 def preprocess_function(examples):
     inputs = [prefix + doc for doc in examples["text"]]
-    model_inputs = tokenizer(inputs, max_length=InputMaxLength, truncation=True)
-    labels = tokenizer(text_target=examples["summary"], max_length=OutputMaxLength, truncation=True)
+    model_inputs = tokenizer(inputs, max_length=1024, truncation=True)
+    labels = tokenizer(text_target=examples["summary"], max_length=128, truncation=True)
     model_inputs["labels"] = labels["input_ids"]
     return model_inputs
 
@@ -35,6 +33,7 @@ billsum = load_dataset("billsum")
 #Tokenized_TextDataset = TextDataset.map(preprocess_function, batched=True)
 Tokenized_TextDataset = billsum.map(preprocess_function, batched=True)
 
+raise Exception ("Nigger")
 from transformers import DataCollatorForSeq2Seq
 data_collator = DataCollatorForSeq2Seq(tokenizer=tokenizer, model=checkpoint)
 
@@ -58,7 +57,7 @@ from transformers import AutoModelForSeq2SeqLM, Seq2SeqTrainingArguments, Seq2Se
 model = AutoModelForSeq2SeqLM.from_pretrained(checkpoint).to(device)
 def trainModel (model, Tokenized_TextDataset, name_run):
     training_args = Seq2SeqTrainingArguments(
-        output_dir="RunOutput/" + name_run + "_output",
+        output_dir=name_run + "_output",
         eval_strategy="epoch",
         learning_rate=gayLR, #2e-5
         per_device_train_batch_size=batch_size,
@@ -89,8 +88,6 @@ def trainModel (model, Tokenized_TextDataset, name_run):
     return model
 
 model = trainModel (model, Tokenized_TextDataset, name_run)
-
-raise Exception ("sex")
 
 cnn = load_dataset("cnn_dailymail", '3.0.0')
 cnn = cnn.rename_column("article", "text")
