@@ -1,17 +1,6 @@
 datasets==2.19.1
-deep_translator==1.11.4
 Django==5.0.6
 evaluate==0.4.2
-Flask==3.0.3
-Flask_Cors==4.0.0
 numpy==2.0.0
-Pillow==9.5.0
-Pillow==10.3.0
-PyJWT==2.8.0
-PyJWT==2.8.0
-python-dotenv==1.0.1
-python_bcrypt==0.3.2
-Requests==2.32.3
-SQLAlchemy==2.0.28
 torch==2.3.0+cu118
 transformers==4.41.1
