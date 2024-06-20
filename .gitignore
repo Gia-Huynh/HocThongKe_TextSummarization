@@ -6,6 +6,7 @@
 nlp/db.sqlite3
 nlp/db.sqlite3
 *.sqlite3
-./nlp/home/my_awesome_billsum_model
-./nlp/home/my_awesome_billsum_model/
-./nlp/home/my_awesome_billsum_model/*
+/nlp/home/my_awesome_billsum_model
+/nlp/home/my_awesome_billsum_model/
+/nlp/home/my_awesome_billsum_model/*
+/nlp/home/my_awesome_billsum_model/*/*.*
