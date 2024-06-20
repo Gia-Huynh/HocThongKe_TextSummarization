@@ -10,7 +10,7 @@ HCM University of Science
 
 #### Download model and copy to directory
 * Go to the directory "Web_Demo/home/".
-* Get the model file from [this link](https://studenthcmusedu-my.sharepoint.com/personal/20120070_student_hcmus_edu_vn/_layouts/15/onedrive.aspx?id=%2Fpersonal%2F20120070%5Fstudent%5Fhcmus%5Fedu%5Fvn%2FDocuments%2FBillsumModel%2Ezip&parent=%2Fpersonal%2F20120070%5Fstudent%5Fhcmus%5Fedu%5Fvn%2FDocuments&ga=1) and extract the folder inside that zip file to the "Web_Demo/home/" folder.  
+* Get the model file from [this link](https://studenthcmusedu-my.sharepoint.com/:u:/g/personal/20120070_student_hcmus_edu_vn/EewqtGi8wTJOmvuzib5eTLUBzJDVPDl5B-2Dz6Zip3wyGA?e=Hd0IjA) and extract the folder inside that zip file to the "Web_Demo/home/" folder.  
 The folder structure should look like this:  
 ![Image](./Report_Data/InstallBillsum.png)  
 
