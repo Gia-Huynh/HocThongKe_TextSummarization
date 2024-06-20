@@ -7,8 +7,9 @@ Ho Chi Minh University of Science
 * Install python 3.11
 ### Installing neccessary libraries
 #### The script way
-* cd to the "HocThongKe_TextSummarization" folder  
-* pip install -r requirements.txt to install libraries  
+* Open command prompt.
+* `cd` to the "HocThongKe_TextSummarization" folder.  
+* Run command `pip install -r requirements.txt` to install libraries.  
 #### Alternative: The bat file
 * Alternatively, double click the InstallScript.bat file to install libraries.
 ### Download model and copy to directory
@@ -18,8 +19,8 @@ The folder structure should look like this:
 ![Image](./Report_Data/InstallBillsum.png)  
 ### Run program
 #### The script way
-* cd Web_Demo  
-* Type the command "python manage.py runserver 8888"
-* Type localhost:8888 on your browser to access the web page 
+* `cd Web_Demo` 
+* Type the command `python manage.py runserver 8888`.
+* Type `localhost:8888` on your browser to access the web page 
 #### Alternative: The bat file
 * Alternatively, navigate to the "Web_Demo" folder and double click the RunWebDemo.bat file to start the web server.  
