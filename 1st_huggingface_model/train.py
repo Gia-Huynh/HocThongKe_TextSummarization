@@ -30,10 +30,10 @@ def preprocess_function(examples):
     model_inputs["labels"] = labels["input_ids"]
     return model_inputs
 
-billsum = load_dataset("billsum", split = "train")
-billsumTest = load_dataset ("billsum", split = "test")
-billsum = billsum.train_test_split(test_size=0.1)
-#Tokenized_TextDataset = TextDataset.map(preprocess_function, batched=True)
+billsum = load_dataset("billsum")
+#billsum = load_dataset("billsum", split = "train")
+#billsumTest = load_dataset ("billsum", split = "test")
+#billsum = billsum.train_test_split(test_size=0.1)
 Tokenized_TextDataset = billsum.map(preprocess_function, batched=True)
 
 from transformers import DataCollatorForSeq2Seq
