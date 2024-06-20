@@ -10,7 +10,7 @@ Ho Chi Minh University of Science
 * Open command prompt.
 * `cd` to the "HocThongKe_TextSummarization" folder.  
 * Run command `pip install -r requirements.txt` to install libraries.  
-#### Alternative: The bat file
+#### Alternative for windows users: The bat file
 * Alternatively, double click the InstallScript.bat file to install libraries.
 ### Download model and copy to directory
 * Go to the directory "Web_Demo/home/".
@@ -22,5 +22,5 @@ The folder structure should look like this:
 * `cd Web_Demo` 
 * Type the command `python manage.py runserver 8888`.
 * Type `localhost:8888` on your browser to access the web page 
-#### Alternative: The bat file
+#### Alternative for windows users: The bat file
 * Alternatively, navigate to the "Web_Demo" folder and double click the RunWebDemo.bat file to start the web server.  
