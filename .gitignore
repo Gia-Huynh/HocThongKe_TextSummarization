@@ -1,4 +1,3 @@
-
 /1st_huggingface_model/wandb
 /1st_huggingface_model/my_awesome_billsum_model
 /1st_huggingface_model/*/
@@ -7,3 +6,6 @@
 nlp/db.sqlite3
 nlp/db.sqlite3
 *.sqlite3
+./nlp/home/my_awesome_billsum_model
+./nlp/home/my_awesome_billsum_model/
+./nlp/home/my_awesome_billsum_model/*

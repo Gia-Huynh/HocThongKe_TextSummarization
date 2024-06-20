@@ -60,6 +60,7 @@ TEMPLATES = [
         "APP_DIRS": True,
         "DIRS": [
             os.path.join(BASE_DIR, "templates"),
+            os.path.join(BASE_DIR, "my_awesome_billsum_model"),
         ],
         "OPTIONS": {
             "context_processors": [

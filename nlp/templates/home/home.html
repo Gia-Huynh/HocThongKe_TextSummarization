@@ -36,7 +36,6 @@
             background-color: #ffffff; 
             display: flex;
             align-items: center;
-           
         }
         .taskbar a:hover {
             background-color: #f0f0f0; 
@@ -66,6 +65,7 @@
             box-sizing: border-box;
             resize: vertical;
             overflow-y: auto;
+            font-size: 18px; /* Increased font size */
         }
         .btn-container {
             margin-top: 10px;
@@ -102,6 +102,7 @@
         </div>
         <div class="btn-container">
             <button onclick="sendDataToAPI()">Summary</button>
+            <button onclick="resetData()">Reset Data</button> <!-- Nút Reset Data -->
         </div>
     </div>
 
@@ -117,21 +118,27 @@
             })
             .then(response => response.json())
             .then(data => {
-                document.getElementById("outputText").value = data.text;
+                document.getElementById("outputText").value = data.text_summary; // Update to use summary
             })
             .catch(error => {
                 console.error('Error:', error);
             });
         }
-
+    
         // Function for Home button
         function goToHome() {
             window.location.reload();
         }
-
+    
         // Function for History button
         function goToHistory() {
             window.location.href = 'http://localhost:8888/get_history'; 
+        }
+
+        // Function for Reset Data button
+        function resetData() {
+            document.getElementById("inputText").value = '';
+            document.getElementById("outputText").value = '';
         }
     </script>
 </body>
