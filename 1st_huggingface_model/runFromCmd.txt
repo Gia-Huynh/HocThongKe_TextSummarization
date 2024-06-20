@@ -1,4 +1,0 @@
-Mở cmd, cd vào thư mục này, gõ "python" để vào python idle, chạy 1 trong 2 lệnh dưới
-exec(open('train.py').read())
-exec(open('interference.py').read())
-Lợi ích thay vì gõ trực tiếp "python train.py" là khi chạy xong nó vẫn còn giữ nguyên môi trường, giữ nguyên biến để mình print ra kiểm tra
