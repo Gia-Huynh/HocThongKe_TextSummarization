@@ -1,5 +1,5 @@
 # Text Summarization Demo Project
-20120070 - Huỳnh Thiết Gia - 20120070@student.hcmus.edu.vn 
+20120070 - Huỳnh Thiết Gia - 20120070@student.hcmus.edu.vn  
 20120151 - Nguyễn Thành Nhân - 20120070@student.hcmus.edu.vn    
 Ho Chi Minh University of Science
 ## How to install 
@@ -24,3 +24,4 @@ The folder structure should look like this:
 * Type `localhost:8888` on your browser to access the web page 
 #### Alternative for windows users: The bat file
 * Alternatively, navigate to the "Web_Demo" folder and double click the RunWebDemo.bat file to start the web server.  
+* Type `localhost:8888` on your browser to access the web page 
