@@ -1,6 +1,6 @@
 # Text Summarization Demo Project
 20120070 - Huỳnh Thiết Gia - 20120070@student.hcmus.edu.vn  
-20120151 - Nguyễn Thành Nhân - 20120070@student.hcmus.edu.vn    
+20120151 - Nguyễn Thành Nhân - 20120151@student.hcmus.edu.vn    
 Ho Chi Minh University of Science
 ## How to install 
 ### Prepare environment
