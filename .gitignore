@@ -6,6 +6,7 @@
 /Web_Demo/db.sqlite3
 Web_Demo/db.sqlite3
 *.sqlite3
+/Web_Demo/home/Billsum*
 /Web_Demo/home/BillsumModel
 /Web_Demo/home/BillsumModel/
 /Web_Demo/home/BillsumModel/*
