@@ -3,7 +3,7 @@
 20120151 - Nguyễn Thành Nhân - 20120151@student.hcmus.edu.vn    
 Ho Chi Minh University of Science  
   
-![Image](./Report_Data/DemoIMG.png)  
+![Image](./Report_Data/DemoIMG.PNG)  
 ## How to install 
 ### Prepare environment
 * Install python 3.11
